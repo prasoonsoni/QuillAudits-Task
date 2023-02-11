@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app"
 import dotenv from "dotenv"
 dotenv.config()
 const { apiKey, authDomain, projectId, databaseURL, storageBucket, messagingSenderId, appId } = process.env
@@ -13,6 +12,4 @@ const firebaseConfig =  {
     appId
 }
 
-const firebaseStorage = initializeApp(firebaseConfig)
-
-export default firebaseStorage
+export default firebaseConfig

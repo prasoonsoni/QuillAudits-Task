@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import connectToDatabase from "./database/connection.js"
+import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config()
 const app = express()
@@ -14,6 +15,8 @@ connectToDatabase()
 app.get('/', (req, res) => {
     res.send("QuillAudits Backend Working")
 })
+
+app.use('/api/user', userRoutes)
 
 app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`)

@@ -8,6 +8,7 @@ import {
     useBreakpointValue,
 } from '@chakra-ui/react';
 import { UnlockIcon, AddIcon } from "@chakra-ui/icons"
+import { Link } from 'react-router-dom';
 
 export default function SplitScreen() {
     return (
@@ -39,17 +40,22 @@ export default function SplitScreen() {
                         Find your match and make a Soulmate Search with Love Connection. Our user-friendly dating app makes it easy to find and connect with like-minded singles in your area. Start your journey to find love today!
                     </Text>
                     <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-                        <Button
-                            rounded={'full'}
-                            bg={'blue.400'}
-                            color={'white'}
-                            leftIcon={< UnlockIcon />}
-                            _hover={{
-                                bg: 'blue.500',
-                            }}>
-                            Login
-                        </Button>
-                        <Button rounded={'full'} leftIcon={<AddIcon />}>Register</Button>
+                        <Link to="/login">
+                            <Button
+                                rounded={'full'}
+                                bg={'blue.400'}
+                                color={'white'}
+                                leftIcon={< UnlockIcon />}
+
+                                _hover={{
+                                    bg: 'blue.500',
+                                }}>
+                                Login
+                            </Button>
+                        </Link>
+                        <Link to="/signup">
+                            <Button rounded={'full'} leftIcon={<AddIcon />}>Register</Button>
+                        </Link>
                     </Stack>
                 </Stack>
             </Flex>
@@ -58,7 +64,7 @@ export default function SplitScreen() {
                     alt={'Login Image'}
                     objectFit={'cover'}
                     src={
-                        'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+                        'https://cdn-icons-png.flaticon.com/512/6041/6041893.png'
                     }
                 />
             </Flex>

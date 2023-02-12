@@ -2,7 +2,7 @@
 <!-- PROJECT LOGO -->
 <p align="center">
   <a href="https://github.com/prasoonsoni/QuillAudits-Task">
-    <img src="https://user-images.githubusercontent.com/75159757/174998135-dd9064bc-b10c-4d93-955a-f0b913f8f5cc.png" alt="Logo" width="100" height="100">
+    <img src="https://cdn-icons-png.flaticon.com/512/6041/6041893.png" alt="Logo" width="100" height="100">
   </a>
   <h1 align="center">Soulmate Search👩‍❤️‍👨</h1>
   <p align="center">
@@ -154,19 +154,31 @@ Start the client
 ```
 
 
-## Authors
+## 🤫 Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file in both frontend and backend.
+
+#### Backend
+- Firebase
+`apiKey`
+`authDomain`
+`projectId`
+`storageBucket`
+`messagingSenderId`
+`appId`
+`measurementId`
+
+- Others
+`MONGO_URI`
+`HOST`
+`JWT_SECRET`
+
+#### Frontend
+`REACT_APP_BASE_URL`
+
+
+## 👨‍💻 Authors 
 
 - [@prasoonsoni](https://www.github.com/prasoonsoni)
 
-
-## Related
-
-Here are some related projects
-
-[Awesome README](https://github.com/matiassingers/awesome-readme)
-
-
-## Optimizations
-
-What optimizations did you make in your code? E.g. refactors, performance improvements, accessibility
 

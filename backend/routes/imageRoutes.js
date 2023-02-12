@@ -7,5 +7,6 @@ const upload = multer({ storage: multer.memoryStorage() })
 
 router.post('/upload', [upload.single("filename"), fetchUser], imageController.uploadImage)
 router.get('/', fetchUser, imageController.getAllImages)
+// router.get('/:image_id', fetchUser, imageController.likeImage)
 
 export default router

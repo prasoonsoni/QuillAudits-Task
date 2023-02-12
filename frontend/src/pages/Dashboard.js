@@ -20,9 +20,18 @@ import {
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import Card from '../components/Card'
+import io from 'socket.io-client';
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export default function Dashboard() {
+    const { colorMode, toggleColorMode } = useColorMode();
+    const navigate = useNavigate()
+    const toast = useToast()
+    const [email, setEmail] = useState("")
+    const [users, setUsers] = useState([])
+    const [id, setId] = useState("")
+    const socket = io(BASE_URL);
+
     useEffect(() => {
         if (!sessionStorage.getItem("token")) {
             navigate("/")
@@ -30,12 +39,31 @@ export default function Dashboard() {
         }
         checkImage()
         getAllUsers()
-    }, [])
-    const { colorMode, toggleColorMode } = useColorMode();
-    const navigate = useNavigate()
-    const toast = useToast()
-    const [email, setEmail] = useState("")
-    const [users, setUsers] = useState([])
+
+        if (id != "") {
+            socket.on('connect', () => {
+                console.log(`Connected: ${socket.id}`);
+                socket.emit('register-user', id)
+            });
+
+            socket.on('receive-like-notification', (data) => {
+                toast({
+                    margin:"50px",
+                    title: "Someone liked your Image",
+                    variant: "left-accent",
+                    status: "info",
+                    duration: 10000,
+                    position: "top-right",
+                    isClosable: true
+                })
+            });
+        }
+        return () => {
+            socket.disconnect();
+        };
+
+    }, [id]);
+
     const checkImage = async () => {
         const response = await fetch(`${BASE_URL}/api/user/`, {
             method: "GET",
@@ -46,23 +74,26 @@ export default function Dashboard() {
         })
         const json = await response.json()
         if (json.success) {
+            console.log(json)
             if (!json.imageFound) {
                 toast({ title: "Image not uploaded, Please upload image.", variant: "left-accent", status: "error", duration: 2000 })
                 navigate("/image")
+                return
             }
             setEmail(json.user.email)
+            setId(json.image._id)
             sessionStorage.setItem("image_url", json.image.link)
         } else {
             toast({ title: json.message, variant: "left-accent", status: "error", duration: 2000 })
         }
     }
-    const handleLogout = ()=>{
+    const handleLogout = () => {
         sessionStorage.clear("token")
         sessionStorage.clear("image_url")
         navigate("/")
     }
-    
-    const getAllUsers = async()=>{
+
+    const getAllUsers = async () => {
         const response = await fetch(`${BASE_URL}/api/image/`, {
             method: "GET",
             headers: {
@@ -118,8 +149,8 @@ export default function Dashboard() {
                     </Flex>
                 </Flex>
             </Box>
-            {users.map((user)=>{
-                return <Card user={user}/>
+            {users.map((user) => {
+                return <Card key={user._id} user={user} />
             })}
         </>
     );

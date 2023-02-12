@@ -6,7 +6,6 @@ import {
     Box,
     Flex,
     Avatar,
-    HStack,
     Button,
     Menu,
     MenuButton,
@@ -17,21 +16,10 @@ import {
     Stack,
     useColorMode,
     Center,
-    Text,
     Image
 } from '@chakra-ui/react';
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure
-} from '@chakra-ui/react'
+
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { BsEmojiHeartEyes } from "react-icons/bs"
 import Card from '../components/Card'
 import io from 'socket.io-client';
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -44,7 +32,6 @@ export default function Dashboard() {
     const [users, setUsers] = useState([])
     const [id, setId] = useState("")
     const socket = io(BASE_URL);
-    const { isOpen, onOpen, onClose } = useDisclosure()
     useEffect(() => {
         if (!sessionStorage.getItem("token")) {
             navigate("/")
@@ -73,7 +60,7 @@ export default function Dashboard() {
                 toast({
                     title: "Super liked your Image",
                     variant: "left-accent",
-                    status: "info",
+                    status: "success",
                     duration: 15000,
                     position: "bottom-right",
                     isClosable: true,
@@ -98,7 +85,7 @@ export default function Dashboard() {
                 toast({
                     title: "Super liked your Image",
                     variant: "left-accent",
-                    status: "info",
+                    status: "success",
                     duration: 15000,
                     position: "bottom-right",
                 })

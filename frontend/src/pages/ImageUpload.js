@@ -12,8 +12,7 @@ import {
     AvatarBadge,
     IconButton,
     Center,
-    VisuallyHidden,
-    BeatLoader
+    VisuallyHidden
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from "react"
 import { SmallCloseIcon } from '@chakra-ui/icons';

@@ -82,7 +82,7 @@ app.post('/api/image/superlike/:imageId', fetchUser, async (req, res) => {
     }
     res.send({
         success: true,
-        message: 'Image Liked',
+        message: 'Image Super Liked',
     });
 });
 

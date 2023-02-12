@@ -114,6 +114,19 @@ Find your match and make a Soulmate Search with Love Connection. Our user-friend
 | :-------- | :------- | :------------------------- |
 | `imageId` | `string` | **Required**. ID of image to be liked. |
 
+#### 7. Block User
+
+```http
+  GET /api/image/block/:imageId
+```
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `auth-token` | `string` | **Required**. Your Authentication Token |
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `imageId` | `string` | **Required**. ID of image to be liked. |
+
 ## 🖼️ Screenshots
 #### 1. Hero Page
 
@@ -146,6 +159,11 @@ Find your match and make a Soulmate Search with Love Connection. Our user-friend
 #### 8. Logout Feature
 
 <img height="220px" src="https://user-images.githubusercontent.com/75159757/218320733-500fb04d-4aa4-4640-8914-42972019bfcc.png" /> <img height="220px" src="https://user-images.githubusercontent.com/75159757/218320743-418c97bf-dee0-4cd4-8fe9-62f6ff50c86b.png" />
+
+## 📹 Demo Video
+
+
+https://user-images.githubusercontent.com/75159757/218327379-90ae4c60-fcf9-453c-8f2b-4c8c00e5eed3.mp4
 
 
 

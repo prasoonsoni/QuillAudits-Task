@@ -66,4 +66,12 @@ const getUser = async (req, res) => {
     }
 }
 
+const blockUser = async(req, res)=>{
+    try {
+        
+    } catch (err) {
+        console.log(err.message)
+        res.json({ success: false, message: 'Some Internal Server Error Occured.' })
+    }
+}
 export default { signup, login, getUser }

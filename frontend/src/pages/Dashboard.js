@@ -32,14 +32,15 @@ export default function Dashboard() {
     const [users, setUsers] = useState([])
     const [id, setId] = useState("")
     const socket = io(BASE_URL);
+    useEffect(()=>{
+        checkImage()
+        getAllUsers()
+    },[])
     useEffect(() => {
         if (!sessionStorage.getItem("token")) {
             navigate("/")
             return
         }
-        checkImage()
-        getAllUsers()
-
         if (id != "") {
             socket.on('connect', () => {
                 console.log(`Connected: ${socket.id}`);

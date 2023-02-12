@@ -53,21 +53,4 @@ const getAllImages = async (req, res) => {
     }
 }
 
-// const likeImage = async (req, res) => {
-//     try {
-//         const liker_id = new ObjectId(req.user._id)
-//         const image_id = new ObjectId(req.params.image_id)
-//         const image = await Image.findOne({ _id: image_id })
-//         const io = getSocketConnection();
-//         const liked_id = image._id
-//         io.to(liked_id).emit('receive-notification', {
-//             message: `User liked your image: ${image_id}`,
-//         });
-//         res.json({ success: true, message: "Image Liked Successfully"})
-
-//     } catch (error) {
-//         console.log(err.message)
-//         res.json({ success: false, message: 'Some Internal Server Error Occured.' })
-//     }
-// }
 export default { uploadImage, getAllImages }

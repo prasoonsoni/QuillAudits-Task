@@ -21,6 +21,24 @@ function Card({ user }) {
     const toast = useToast()
     const [likeLoading, setLikeLoading] = useState(false)
     const [superLikeLoading, setSuperLikeLoading] = useState(false)
+    const [blockLoading, setBlockLoading] = useState(false)
+    const handleBlock = async()=>{
+        setBlockLoading(true)
+        const response = await fetch(`${BASE_URL}/api/image/block/${user._id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token":sessionStorage.getItem("token")
+            },
+        })
+        const json = await response.json()
+        if(json.success){
+            toast({ title: json.message, variant: "left-accent", status: "success", duration: 2000 })
+        } else {
+            toast({ title: json.message, variant: "left-accent", status: "error", duration: 2000 })
+        }
+        setBlockLoading(false)
+    }
     const handleLike = async()=>{
         setLikeLoading(true)
         const response = await fetch(`${BASE_URL}/api/image/like/${user._id}`, {
@@ -48,7 +66,7 @@ function Card({ user }) {
         if(json.success){
             toast({ title: json.message, variant: "left-accent", status: "success", duration: 2000 })
         }
-        setLikeLoading(false)
+        setSuperLikeLoading(false)
     }
     return (
         <Flex p={5} w="full" alignItems="center" justifyContent="center">
@@ -67,7 +85,7 @@ function Card({ user }) {
                 <HStack m="3" justifyContent="center">
                     <Button loading={likeLoading} onClick={handleLike} colorScheme = "green" leftIcon={<AiOutlineLike/>}>Like</Button>
                     <Button loading={superLikeLoading} onClick={handleSuperLike} colorScheme = "blue" leftIcon={<AiOutlineHeart/>}>Super Like</Button>
-                    <Button colorScheme = "red" leftIcon={<BiBlock/>}>Block</Button>
+                    <Button loading={blockLoading} onClick={handleBlock} colorScheme = "red" leftIcon={<BiBlock/>}>Block</Button>
                 </HStack>
             </Box>
         </Flex>

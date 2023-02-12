@@ -19,21 +19,8 @@ import {
     Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-
+import Card from '../components/Card'
 const BASE_URL = process.env.REACT_APP_BASE_URL
-const NavLink = ({ children }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}>
-        {children}
-    </Link>
-);
 
 export default function Dashboard() {
     useEffect(() => {
@@ -42,11 +29,13 @@ export default function Dashboard() {
             return
         }
         checkImage()
+        getAllUsers()
     }, [])
     const { colorMode, toggleColorMode } = useColorMode();
     const navigate = useNavigate()
     const toast = useToast()
     const [email, setEmail] = useState("")
+    const [users, setUsers] = useState([])
     const checkImage = async () => {
         const response = await fetch(`${BASE_URL}/api/user/`, {
             method: "GET",
@@ -71,6 +60,18 @@ export default function Dashboard() {
         sessionStorage.clear("token")
         sessionStorage.clear("image_url")
         navigate("/")
+    }
+    
+    const getAllUsers = async()=>{
+        const response = await fetch(`${BASE_URL}/api/image/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": sessionStorage.getItem("token")
+            },
+        })
+        const json = await response.json()
+        setUsers(json.data)
     }
     return (
         <>
@@ -117,6 +118,9 @@ export default function Dashboard() {
                     </Flex>
                 </Flex>
             </Box>
+            {users.map((user)=>{
+                return <Card user={user}/>
+            })}
         </>
     );
 }

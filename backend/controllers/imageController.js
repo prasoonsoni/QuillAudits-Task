@@ -42,4 +42,14 @@ const uploadImage = async (req, res) => {
     }
 }
 
-export default { uploadImage }
+const getAllImages = async (req, res) => {
+    try {
+        const user_id = new ObjectId(req.user._id)
+        const images = await Image.find({ user_id: { $ne: user_id } })
+        res.json({ success: true, message: "Images Found Successfully", data: images })
+    } catch (err) {
+        console.log(err.message)
+        res.json({ success: false, message: 'Some Internal Server Error Occured.' })
+    }
+}
+export default { uploadImage, getAllImages }

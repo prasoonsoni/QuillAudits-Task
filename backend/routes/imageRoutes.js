@@ -6,5 +6,6 @@ const router = express.Router()
 const upload = multer({ storage: multer.memoryStorage() })
 
 router.post('/upload', [upload.single("filename"), fetchUser], imageController.uploadImage)
+router.get('/', fetchUser, imageController.getAllImages)
 
 export default router

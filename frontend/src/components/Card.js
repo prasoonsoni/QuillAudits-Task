@@ -17,10 +17,21 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 
 function Card({ user }) {
     const handleLike = async()=>{
-        const response = await fetch(`${BASE_URL}/api/image/${user._id}`, {
+        const response = await fetch(`${BASE_URL}/api/image/like/${user._id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+            },
+        })
+        const json = await response.json()
+        console.log(json)
+    }
+    const handleSuperLike = async()=>{
+        const response = await fetch(`${BASE_URL}/api/image/superlike/${user._id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token":sessionStorage.getItem("token")
             },
         })
         const json = await response.json()
@@ -42,7 +53,7 @@ function Card({ user }) {
                 />
                 <HStack m="3" justifyContent="center">
                     <Button onClick={handleLike} colorScheme = "green" leftIcon={<AiOutlineLike/>}>Like</Button>
-                    <Button colorScheme = "blue" leftIcon={<AiOutlineHeart/>}>Super Like</Button>
+                    <Button onClick={handleSuperLike} colorScheme = "blue" leftIcon={<AiOutlineHeart/>}>Super Like</Button>
                     <Button colorScheme = "red" leftIcon={<BiBlock/>}>Block</Button>
                 </HStack>
             </Box>

@@ -6,7 +6,7 @@ import {
     Box,
     Flex,
     Avatar,
-    Link,
+    HStack,
     Button,
     Menu,
     MenuButton,
@@ -17,8 +17,21 @@ import {
     Stack,
     useColorMode,
     Center,
+    Text,
+    Image
 } from '@chakra-ui/react';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure
+} from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { BsEmojiHeartEyes } from "react-icons/bs"
 import Card from '../components/Card'
 import io from 'socket.io-client';
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -31,7 +44,7 @@ export default function Dashboard() {
     const [users, setUsers] = useState([])
     const [id, setId] = useState("")
     const socket = io(BASE_URL);
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
     useEffect(() => {
         if (!sessionStorage.getItem("token")) {
             navigate("/")
@@ -48,13 +61,46 @@ export default function Dashboard() {
 
             socket.on('receive-like-notification', (data) => {
                 toast({
-                    margin:"50px",
                     title: "Someone liked your Image",
                     variant: "left-accent",
                     status: "info",
-                    duration: 10000,
-                    position: "top-right",
+                    duration: 15000,
+                    position: "bottom-right",
                     isClosable: true
+                })
+            });
+            socket.on('receive-superlike-notification', (data) => {
+                toast({
+                    title: "Super liked your Image",
+                    variant: "left-accent",
+                    status: "info",
+                    duration: 15000,
+                    position: "bottom-right",
+                    isClosable: true,
+                    render: () => (
+                        <Box
+                            maxW="sm"
+                            borderWidth="1px"
+                            rounded="lg"
+                            shadow="lg"
+                            p={2}
+                            display="flex"
+                            justifyContent="center"
+                            >
+                            <Image
+                                src={data.link}
+                                width="200px"
+                                rounded="lg"
+                            />
+                        </Box>
+                    )
+                })
+                toast({
+                    title: "Super liked your Image",
+                    variant: "left-accent",
+                    status: "info",
+                    duration: 15000,
+                    position: "bottom-right",
                 })
             });
         }

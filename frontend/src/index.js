@@ -5,6 +5,8 @@ import theme from './config/theme';
 import Hero from './pages/Hero'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard'
+import ImageUpload from './pages/ImageUpload'
 import { createBrowserRouter, RouterProvider, } from "react-router-dom"
 
 const router = createBrowserRouter([
@@ -19,15 +21,23 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />
+  },
+  {
+    path: "/image",
+    element: <ImageUpload />
   }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
+  <>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
     </ChakraProvider>
-  </React.StrictMode>
+  </>
 );

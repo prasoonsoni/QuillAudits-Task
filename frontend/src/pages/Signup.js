@@ -34,7 +34,6 @@ export default function Signup() {
             body: JSON.stringify({ email: email.trim().toLowerCase(), password: password })
         })
         const json = await response.json()
-        console.log(json)
         if (json.success) {
             toast({ title: "Account created Successfully!!", variant: "left-accent", status: "success", duration: 2000 })
         } else {

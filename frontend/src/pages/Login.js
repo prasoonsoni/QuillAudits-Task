@@ -36,10 +36,9 @@ export default function Login() {
             body: JSON.stringify({ email: email.trim().toLowerCase(), password: password })
         })
         const json = await response.json()
-        console.log(json)
         if (json.success) {
-            toast({ title: "Loggen In Successfully!!", variant: "left-accent", status: "success", duration: 2000 })
-            sessionStorage.setItem("token", json.authtoken);
+            toast({ title: "Logged In Successfully!!", variant: "left-accent", status: "success", duration: 2000 })
+            sessionStorage.setItem("token", json.token);
             navigate("/dashboard")
         } else {
             toast({ title: json.message, variant: "left-accent", status: "error", duration: 2000 })

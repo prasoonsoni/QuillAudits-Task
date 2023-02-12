@@ -2,6 +2,7 @@ import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import User from "../models/User.js"
+import Image from "../models/Image.js"
 dotenv.config()
 
 const signup = async (req, res) => {
@@ -53,7 +54,12 @@ const getUser = async (req, res) => {
         if (!user) {
             return res.json({ success: false, message: 'User Not Found.' })
         }
-        return res.json({ success: true, message: 'User Found Successfully.', user })
+        const image = await Image.findOne({ user_id: req.user._id })
+        var imageFound = true
+        if (!image) {
+            imageFound = false
+        }
+        return res.json({ success: true, message: 'User Found Successfully.', user, image, imageFound })
     } catch (error) {
         console.log(error.message)
         res.json({ success: false, message: 'Some Internal Server Error Occured.' })

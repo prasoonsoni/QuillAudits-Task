@@ -45,7 +45,8 @@ const uploadImage = async (req, res) => {
 const getAllImages = async (req, res) => {
     try {
         const user_id = new ObjectId(req.user._id)
-        const images = await Image.find({ user_id: { $ne: user_id } })
+        const user = await User.findOne({ _id: user_id })
+        const images = await Image.find({ user_id: { $ne: user_id, $nin: user.blocked_by } })
         res.json({ success: true, message: "Images Found Successfully", data: images })
     } catch (err) {
         console.log(err.message)
@@ -53,4 +54,21 @@ const getAllImages = async (req, res) => {
     }
 }
 
-export default { uploadImage, getAllImages }
+const blockUser = async (req, res) => {
+    try {
+        const user_id = new ObjectId(req.user._id)
+        const image_id = new ObjectId(req.params.imageId)
+        const image = await Image.findOne({ _id: image_id })
+        const user = await User.findOne({ _id: image.user_id })
+        const addBlockedBy = await User.updateOne({ _id: user._id }, { $push: { blocked_by: user_id } })
+        if (!addBlockedBy) {
+            res.json({ success: false, message: 'Error blocking user.' })
+        }
+        res.json({ success: true, message: 'Blocked User Successfully.' })
+    } catch (err) {
+        console.log(err.message)
+        res.json({ success: false, message: 'Some Internal Server Error Occured.' })
+    }
+}
+
+export default { uploadImage, getAllImages, blockUser }

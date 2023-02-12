@@ -10,7 +10,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    
+    blocked_by:[]
 })
 
 export default mongoose.model('User', UserSchema)
